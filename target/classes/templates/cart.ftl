@@ -2,37 +2,38 @@
 <#import "common.ftl" as c>
 
 <@c.page>
-    <#include "navbar.ftl">
-    <div class="container">
-        <table class="table">
-            <thead>
+<#include "navbar.ftl">
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Order</th>
-                <th scope="col">Order Date</th>
-                <th scope="col">Status</th>
+                <#if cart?has_content>
+                    <#list cart as cart>
+                    <th scope="row">${cart?index}</th>
+                    <td>${cart.getKey().name}</td>
+                    <td>${cart.getKey().getPrice()}</td>
+                    <td>${cart.getValue()}</td>
             </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+
+                    </#list>
+
+                </#if>
+
+        </tbody>
+    </table>
+    <#if total?has_content>
+        <div> Total Price is ${total}</div>
+        <#else>
+            <div> Total Price is ${0.00}</div>
+    </#if>
+
+</div>
 </@c.page>

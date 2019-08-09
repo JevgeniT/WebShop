@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <h5 class="card-title">${product.getName()}</h5>
                             <p class="card-text">${product.getPrice()}</p>
-                            <a href="#" class="btn btn-primary">Buy</a>
+                            <a href="/productpage/addProduct/${product.getId()}" class="btn btn-primary">Buy</a>
                         </div>
                     </div>
                 </td>
@@ -23,6 +23,7 @@
                         </#list>
 
                 </#if>
+
             </tr>
 <#--                <td>-->
 <#--                    <div class="card" style="width: 18rem;">-->
