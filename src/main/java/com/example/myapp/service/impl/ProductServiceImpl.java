@@ -2,7 +2,7 @@ package com.example.myapp.service.impl;
 
 import com.example.myapp.model.Product;
 import com.example.myapp.repos.ProductRepository;
-import com.example.myapp.service.ProductService;
+import com.example.myapp.service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

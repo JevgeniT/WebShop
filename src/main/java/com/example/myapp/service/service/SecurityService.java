@@ -1,4 +1,4 @@
-package com.example.myapp.service;
+package com.example.myapp.service.service;
 
 public interface SecurityService {
 

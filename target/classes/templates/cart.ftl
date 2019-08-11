@@ -24,7 +24,7 @@
                     <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                     <div class="col-sm-10">
                         <h4 class="nomargin">${cart.getKey().name}</h4>
-                        <p>ebu4ij tekst </p>
+                        <p>text</p>
                     </div>
                 </div>
             </td>
@@ -55,13 +55,17 @@
                 <#else>
                     <td class="hidden-xs text-center"><strong>Total ${0.00} $</strong></td>
                 </#if>
-
-                <td><a href="https://www.paypal.com/webapps/hermes?token=5EY097812P7754247&useraction=commit&mfid=1546377013907_cf1dec6830d7" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                <td><a href="/productpage/checkout" class="btn btn-success btn-block">Checkout<i class="fa fa-angle-right"></i></a></td>
             </tr>
             </tfoot>
 
     </table>
+    <#if compare?has_content>
+        ${compare}
+    </#if>
+
 </div>
+
 </@c.page>
 
 

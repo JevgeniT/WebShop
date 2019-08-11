@@ -1,15 +1,12 @@
 package com.example.myapp.validator;
 
 import com.example.myapp.model.User;
-import com.example.myapp.service.UserService;
+import com.example.myapp.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.ValidationEvent;
 
 @Component
 public class UserValidator implements Validator {

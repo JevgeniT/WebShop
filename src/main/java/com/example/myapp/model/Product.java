@@ -2,6 +2,7 @@ package com.example.myapp.model;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -18,7 +19,7 @@ public class  Product {
     private Integer quantity;
 
     @Column(name = "price", nullable = false)
-    private Double price;
+    private BigDecimal price;
 
 
     public Long getId() {
@@ -45,11 +46,11 @@ public class  Product {
         this.quantity = quantity;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

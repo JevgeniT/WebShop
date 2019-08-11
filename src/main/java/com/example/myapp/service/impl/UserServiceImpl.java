@@ -4,11 +4,9 @@ import com.example.myapp.model.Role;
 import com.example.myapp.model.User;
 import com.example.myapp.repos.RoleRepository;
 import com.example.myapp.repos.UserRepository;
-import com.example.myapp.service.UserService;
+import com.example.myapp.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

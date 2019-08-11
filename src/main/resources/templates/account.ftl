@@ -12,15 +12,11 @@
         <div class="row">
             <div class="col-3">
 
-                <h4 class="text-lg-left"><p class="font-weight-light">Name Lastname</p></h4>
+                <h4 class="text-lg-left"><p class="font-weight-light">Customer</p></h4>
                 <hr>
-                <p class="email note">asd@outlook.com</p>
-                <div class="address note">
-                    <p>asd 8-asd</p>
-                    <p>city, </p>
-                    <p>10616</p>
-                    <p>num</p>
-                </div>
+                <div>Username : $${name}</div>
+                <div>Available balance : $${balance}</div>
+
             </div>
             <hr>
             <div class="col">
@@ -29,32 +25,30 @@
                 <table class="table table-borderless table-sm">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">#id</th>
+                        <th scope="col">Order date</th>
+                        <th scope="col">Total price</th>
+                        <th scope="col">Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+
+                        <#if orders?has_content>
+
+                            <#list orders as orders>
+                                <tr>
+                                <td>${orders.getId()}</td>
+                                <td>${orders.getOrderDate()}</td>
+                                <td>$${orders.getTotalPrice()}</td>
+                                <td> Status </td>
+                                </tr>
+                            </#list>
+
+                        </#if>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
-
-
 </@c.page>
 

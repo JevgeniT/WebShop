@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/cart">Cart</a>
             </li>
         </ul>
-        <div href="account" class="navbar-text">${name}</div>
+        <div class="navbar-text"><a href="account">${name}</a></div>
         <form action="/logout" method="post">
             <button class="btn btn-primary" type="submit">Sign Out</button>
         </form>

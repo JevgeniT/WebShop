@@ -33,11 +33,13 @@
 # INSERT INTO user_roles VALUES (1, 2);
 #
 
-CREATE TABLE products (
-                          id       INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                          name     VARCHAR(255) NOT NULL,
-                          quantity INT          NOT NULL ,
-                          price    DOUBLE          NOT NULL
+CREATE TABLE orders (
+                          id            INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          user_id       INT NOT NULL,
+                          order_date    DATETIME NOT NULL ,
+                          total_price   DOUBLE   NOT NULL,
+                          status enum('shipped','submitted'),
+                          FOREIGN KEY (user_id) REFERENCES users(id)
 )
     ENGINE = InnoDB;
 
@@ -45,4 +47,4 @@ INSERT INTO products VALUES (1,'Milk',5,1.20);
 INSERT INTO products VALUES (2,'Water',15,0.99);
 
 
-drop table products;
+drop table orders;

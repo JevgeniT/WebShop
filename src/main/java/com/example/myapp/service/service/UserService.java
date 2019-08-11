@@ -1,4 +1,4 @@
-package com.example.myapp.service;
+package com.example.myapp.service.service;
 
 import com.example.myapp.model.User;
 

@@ -1,7 +1,7 @@
 package com.example.myapp.service.impl;
 
 
-import com.example.myapp.service.SecurityService;
+import com.example.myapp.service.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

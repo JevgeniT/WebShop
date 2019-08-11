@@ -1,9 +1,9 @@
 package com.example.myapp.controller;
-import com.example.myapp.model.Product;
 import com.example.myapp.model.User;
-import com.example.myapp.service.PrincipalService;
-import com.example.myapp.service.SecurityService;
-import com.example.myapp.service.UserService;
+import com.example.myapp.service.service.OrderService;
+import com.example.myapp.service.service.PrincipalService;
+import com.example.myapp.service.service.SecurityService;
+import com.example.myapp.service.service.UserService;
 import com.example.myapp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.nio.file.attribute.UserPrincipal;
 
 @Controller
 public class UserController {
@@ -29,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -63,13 +64,16 @@ public class UserController {
 
     @GetMapping({"/","/main"})
     public String main(Model model) {
-//        model.addAttribute("user",securityService.findLoggedUsername());
-//        model.addAttribute("balance",securityService.findLoggedUsername());
-        String userName = principalService.getPrincipal();
-        User user = userService.findByUsername(userName);
-        user.getBalance();
-        model.addAttribute("balance",user.getBalance());
         return "main";
     }
 
+    @GetMapping("/account")
+    public String account(Model model) {
+        String userName = principalService.getPrincipal();
+        User user = userService.findByUsername(userName);
+        model.addAttribute("name",user.getUsername());
+        model.addAttribute("balance",user.getBalance());
+        model.addAttribute("orders",orderService.getAll());
+        return "account";
+    }
 }
