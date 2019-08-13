@@ -25,7 +25,7 @@ public class Order {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private String status;
+    private Enum status;
     //    private enum status  {SUBMITTED,SHIPPED};
 
     public Order(LocalDateTime orderDate ,BigDecimal totalPrice,User user) {

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -71,8 +74,11 @@ public class UserController {
     public String account(Model model) {
         String userName = principalService.getPrincipal();
         User user = userService.findByUsername(userName);
+        List<User> usr = new ArrayList<>();
+        usr.add(user);
         model.addAttribute("name",user.getUsername());
-        model.addAttribute("balance",user.getBalance());
+        model.addAttribute("role",user.getRoles().contains("ADMIN"));
+        model.addAttribute("balance",user.getBalance().toString());
         model.addAttribute("orders",orderService.getAll());
         return "account";
     }
