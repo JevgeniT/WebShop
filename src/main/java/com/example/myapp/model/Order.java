@@ -28,6 +28,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status ;
 
+    @Column(name = "ship_date")
+    private LocalDateTime shipDate;
+
     public Order(LocalDateTime orderDate ,BigDecimal totalPrice,User user,Status status) {
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
@@ -76,6 +79,13 @@ public class Order {
         this.status = status;
     }
 
+    public LocalDateTime getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(LocalDateTime shipDate) {
+        this.shipDate = shipDate;
+    }
     @Override
     public String toString() {
         return "Order{" +
@@ -83,7 +93,7 @@ public class Order {
                 ", orderDate=" + orderDate +
                 ", totalPrice=" + totalPrice +
                 ", user=" + "" +
-                ", status=" + status +
+                ", status=" + status +shipDate+
                 '}';
     }
 }

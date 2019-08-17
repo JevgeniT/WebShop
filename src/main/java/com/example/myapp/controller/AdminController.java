@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 @Controller
@@ -47,7 +48,8 @@ public class AdminController {
     @GetMapping("/setstatus/{orderId}")
     public String setStatus(@PathVariable("orderId") Long orderId,Model model){
         model.addAttribute("message",orderService.findById(orderId));
-        orderService.setStatus(orderId,Status.shipped);
+        LocalDateTime currentTime = LocalDateTime.now();
+        orderService.setStatus(orderId,Status.shipped,currentTime);
         return "adminpage";
     }
 }

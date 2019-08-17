@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void setStatus(Long orderId ,Status status) {
-        orderRepository.setStatus(orderId,status);
+    public void setStatus(Long orderId ,Status status ,LocalDateTime shipDate){
+        orderRepository.setStatus(orderId,status,shipDate);
     }
 
 

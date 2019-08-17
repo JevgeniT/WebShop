@@ -8,7 +8,6 @@
 
 <div class="container">
 
-    <hr>
     <div class="col">
         <h4 class="text-left"><p class="font-weight-light">User List</p></h4>
 

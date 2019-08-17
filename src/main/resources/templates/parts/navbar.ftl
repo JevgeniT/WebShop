@@ -22,7 +22,7 @@
         </ul>
         <div class="navbar-text"><a href="account">${name}</a></div>
         <form action="/logout" method="post">
-            <button class="btn btn-primary" type="submit">Sign Out</button>
+            <button class="btn btn-primary btn-sm" type="submit">Sign Out</button>
         </form>
 
 

@@ -30,6 +30,7 @@
                         <th scope="col">Order date</th>
                         <th scope="col">Total price</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Ship Date</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,8 +44,6 @@
                                 <td> ${orders.getStatus()?cap_first}
                                     <a href="/admin/setstatus/${orders.getId()}" class="btn btn-primary"> Ship </a>
                                 </td>
-
-
                             </tr>
                         </#list>
                     </#if>

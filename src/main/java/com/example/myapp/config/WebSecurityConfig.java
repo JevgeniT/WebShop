@@ -31,23 +31,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("static/").anyRequest();
-//    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers( "/","resources/static","/registration").permitAll()
+                    .antMatchers( "/","/static/**","/registration").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
                 .permitAll();
     }
+//
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("static/styles.css");
+//    }
 
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
@@ -62,14 +62,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
-
-//    http
-//
-//            .authorizeRequests()
-//            .antMatchers("/registration").permitAll()
-//            .anyRequest().authenticated()
-//            .and().csrf().disable()
-//            .formLogin()
-//            .loginPage("/login")
-//            .permitAll()
-//            ;
