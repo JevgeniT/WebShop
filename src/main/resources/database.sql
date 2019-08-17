@@ -45,6 +45,5 @@ CREATE TABLE orders (
 #
 # INSERT INTO products VALUES (1,'Milk',5,1.20);
 # INSERT INTO products VALUES (2,'Water',15,0.99);
+# alter table orders  column status1 VARCHAR(250) after status;
 
-
-drop table orders;

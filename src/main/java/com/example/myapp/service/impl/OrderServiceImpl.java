@@ -1,11 +1,16 @@
 package com.example.myapp.service.impl;
 
 import com.example.myapp.model.Order;
+import com.example.myapp.model.Status;
 import com.example.myapp.repos.OrderRepository;
 import com.example.myapp.service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +32,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Optional<Order> findOrderByUser_Id(Long id) {
+        return orderRepository.findById(id);
+    }
+
+    @Override
     public Optional<Order> findById(Long id) {
         return orderRepository.findById(id);
     }
+
+    @Override
+    public void setStatus(Long orderId ,Status status) {
+        orderRepository.setStatus(orderId,status);
+    }
+
+
 }

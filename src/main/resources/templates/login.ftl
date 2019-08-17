@@ -1,4 +1,4 @@
-<#import "common.ftl" as c>
+<#import "parts/common.ftl" as c>
 <@c.page>
 
 <form class="form-signin" modelAttribute="userForm" action="/login" method="post" >

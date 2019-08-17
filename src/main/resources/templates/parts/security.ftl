@@ -8,6 +8,7 @@ known = Session.SPRING_SECURITY_CONTEXT??
 
     name = user.getUsername()
 
+
 <#--        balance = user.getBalance()-->
     >
 <#else>

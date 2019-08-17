@@ -24,14 +24,15 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Enum status;
-    //    private enum status  {SUBMITTED,SHIPPED};
+    private Status status ;
 
-    public Order(LocalDateTime orderDate ,BigDecimal totalPrice,User user) {
+    public Order(LocalDateTime orderDate ,BigDecimal totalPrice,User user,Status status) {
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
-        this.user = user;
+        this.user= user;
+        this.status = status;
     }
     public Order(){};
 
@@ -67,14 +68,22 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", orderDate=" + orderDate +
-                ", balance=" + totalPrice +
-                ", user=" + user +
+                ", totalPrice=" + totalPrice +
+                ", user=" + "" +
+                ", status=" + status +
                 '}';
     }
-
 }

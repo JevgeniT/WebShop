@@ -1,6 +1,7 @@
 package com.example.myapp.controller;
 
 import com.example.myapp.model.Order;
+import com.example.myapp.model.Status;
 import com.example.myapp.model.User;
 import com.example.myapp.service.service.*;
 import org.apache.tomcat.jni.Local;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.persistence.EntityManager;
+import javax.swing.text.html.parser.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -69,9 +72,12 @@ public class ShoppingCartController {
         String userName = principalService.getPrincipal();
         User user = userService.findByUsername(userName);
         LocalDateTime currentTime = LocalDateTime.now(); // Cr
-       if (shoppingCartService.getTotal().compareTo(BigDecimal.valueOf(user.getBalance())) < 0) {
+       if (shoppingCartService.getTotal().compareTo(user.getBalance()) < 0) {
 
-           shoppingCartService.checkout(new Order(currentTime ,shoppingCartService.getTotal() ,user));
+           shoppingCartService.checkout(new Order(currentTime ,shoppingCartService.getTotal() ,user,Status.submitted));
+           user.setBalance(user.getBalance().subtract(shoppingCartService.getTotal()));
+            userService.setBalance(user.getId(),user.getBalance().subtract(shoppingCartService.getTotal()));
+
            return "main";
        }
 

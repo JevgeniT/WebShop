@@ -1,4 +1,4 @@
-<#import "common.ftl" as c>
+<#import "parts/common.ftl" as c>
 <@c.page>
     <form method="post" class="form-signin" >
         <h2 class="form-signin-heading">Create your account</h2>

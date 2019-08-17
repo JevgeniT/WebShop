@@ -16,6 +16,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/cart">Cart</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/users">Admin </a>
+            </li>
         </ul>
         <div class="navbar-text"><a href="account">${name}</a></div>
         <form action="/logout" method="post">

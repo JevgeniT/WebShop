@@ -4,6 +4,7 @@
 
 <@c.page>
     <#include "parts/navbar.ftl">
+    <h1>UserPage</h1>
 
     <div class="container">
 
@@ -11,15 +12,12 @@
         <hr>
         <div class="row">
             <div class="col-3">
-
                 <h4 class="text-lg-left"><p class="font-weight-light">Customer</p></h4>
                 <hr>
-                <div>Username : ${name}</div>
-
-                <div>Role:  ${role}</div>
-
-                <div>Available balance : ${balance}</div>
-
+                <div>Username : ${test.getUsername()}</div>
+                <div>Role:  ${test.getRoles()?join(", ")}</div>
+                <div>Available balance : ${test.getBalance()}</div>
+                <a href="/admin/setbalance/${test.getId()}" class="btn btn-primary"> Add Balance </a>
             </div>
             <hr>
             <div class="col">
@@ -36,19 +34,20 @@
                     </thead>
                     <tbody>
 
-                        <#if orders?has_content>
-
-                            <#list orders as orders>
-                                <tr>
-
+                    <#if test.getOrders()?has_content>
+                        <#list test.getOrders() as orders>
+                            <tr>
                                 <td>${orders.getId()}</td>
-                                <td>${orders.getOrderDate()}</td>
+                                <td>${orders.getOrderDate().toString()?replace("T"," ")}</td>
                                 <td>$${orders.getTotalPrice()}</td>
-                                <td> ${orders.getStatus()} </td>
-                                </tr>
-                            </#list>
+                                <td> ${orders.getStatus()?cap_first}
+                                    <a href="/admin/setstatus/${orders.getId()}" class="btn btn-primary"> Ship </a>
+                                </td>
 
-                        </#if>
+
+                            </tr>
+                        </#list>
+                    </#if>
                     </tbody>
                 </table>
             </div>
