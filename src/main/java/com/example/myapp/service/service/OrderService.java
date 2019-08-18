@@ -14,11 +14,11 @@ public interface OrderService {
 
     void save(Order order);
 
+    void setStatus(Long orderId,Status status,LocalDateTime shipDate) ;
+
     List<Order> getAll();
 
     Optional<Order> findOrderByUser_Id(Long id);
 
     Optional<Order> findById(Long id);
-
-    void setStatus(Long orderId,Status status,LocalDateTime shipDate) ;
 }

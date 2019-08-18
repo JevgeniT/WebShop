@@ -12,9 +12,9 @@ public interface ShoppingCartService {
 
     void removeProduct(Product product);
 
-    Map<Product, Integer> getProductsInCart();
-
     void checkout(Order order);
+
+    Map<Product, Integer> getProductsInCart();
 
     BigDecimal getTotal();
 }

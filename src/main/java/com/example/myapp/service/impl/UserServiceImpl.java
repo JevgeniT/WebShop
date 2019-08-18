@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.getOne(1L));
         user.setRoles(roles);
-
         user.setBalance(new BigDecimal(50.0));
         userRepository.save(user);
     }
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
     public void setBalance(Long userId ,BigDecimal bigDecimal) {
         userRepository.setBalance(userId,bigDecimal);
     }
-
 
     @Override
     public User findByUsername(String username) {

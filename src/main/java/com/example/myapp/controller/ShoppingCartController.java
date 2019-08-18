@@ -71,7 +71,7 @@ public class ShoppingCartController {
 
         String userName = principalService.getPrincipal();
         User user = userService.findByUsername(userName);
-        LocalDateTime currentTime = LocalDateTime.now(); // Cr
+        LocalDateTime currentTime = LocalDateTime.now();
        if (shoppingCartService.getTotal().compareTo(user.getBalance()) < 0) {
            shoppingCartService.checkout(new Order(currentTime ,shoppingCartService.getTotal() ,user,Status.submitted));
            user.setBalance(user.getBalance().subtract(shoppingCartService.getTotal()));

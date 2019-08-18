@@ -3,14 +3,16 @@ package com.example.myapp.controller;
 
 import com.example.myapp.model.Status;
 import com.example.myapp.service.service.OrderService;
+import com.example.myapp.service.service.ProductService;
 import com.example.myapp.service.service.UserService;
+import jdk.nashorn.internal.runtime.Debug;
+import jdk.nashorn.internal.runtime.DebugLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -26,31 +28,41 @@ public class AdminController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ProductService productService;
+
+
     @RequestMapping("/users")
     public String adminPage(Model model){
-        model.addAttribute("test",userService.findAll());
+        model.addAttribute("userList",userService.findAll());
         return "adminpage";
     }
 
     @RequestMapping("/users/{userId}")
     public String userInfo(@PathVariable("userId") Long userId,Model model){
-        model.addAttribute("test",userService.findByUserId(userId));
+        model.addAttribute("singleUser",userService.findByUserId(userId));
         return "userpage";
     }
 
 
-    @GetMapping("/setbalance/{userId}")
-    public String setBalance(@PathVariable("userId") Long userId,Model model){
-            userService.setBalance(userId,BigDecimal.valueOf(66));
-            return "userpage";
+    @PostMapping("/setbalance/{userId}")
+    public String setBalance(@PathVariable("userId") Long userId,
+                             @RequestParam("newBalance") String newBalance){
+            userService.setBalance(userId,new BigDecimal(newBalance));
+            return "redirect:/admin/users/{userId}";
     }
 
     @GetMapping("/setstatus/{orderId}")
     public String setStatus(@PathVariable("orderId") Long orderId,Model model){
         model.addAttribute("message",orderService.findById(orderId));
-        LocalDateTime currentTime = LocalDateTime.now();
-        orderService.setStatus(orderId,Status.shipped,currentTime);
-        return "adminpage";
+        orderService.setStatus(orderId,Status.shipped,LocalDateTime.now());
+        return "redirect:/admin/users/";
     }
+
+//    @RequestMapping("/users/{userId}")
+//    public String productInfo(Model model){
+//        model.addAttribute("singleUser",productService.getAll());
+//        return null;
+//    }
 }
 

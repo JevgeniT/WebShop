@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrincipalService {
 
-
     /**
      * This method returns the principal[user-name] of logged-in user.
      */
@@ -26,13 +25,7 @@ public class PrincipalService {
         return userName;
     }
 
-
-
     /**
      * This method returns true if users is already authenticated [logged-in], else false.
 //     */
-//    public boolean isCurrentAuthenticationAnonymous() {
-//        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        return authenticationTrustResolver.isAnonymous(authentication);
-//    }
 }

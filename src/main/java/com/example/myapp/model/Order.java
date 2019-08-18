@@ -37,6 +37,7 @@ public class Order {
         this.user= user;
         this.status = status;
     }
+
     public Order(){};
 
     public Long getId() {

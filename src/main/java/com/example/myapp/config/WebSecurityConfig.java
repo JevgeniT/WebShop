@@ -22,6 +22,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
     @Autowired
     private UserDetailsService userDetailsService;
     @Bean
@@ -29,25 +31,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers( "/","/static/**","/registration").permitAll()
+                    .antMatchers( "/static/**","/registration").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
                 .permitAll();
     }
-//
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("static/styles.css");
-//    }
 
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
@@ -55,8 +49,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

@@ -43,7 +43,7 @@ public class UserController {
     public String registration(@ModelAttribute("userForm") User userForm,BindingResult bindingResult,Model model) {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-           model.addAttribute("message","input error");
+            model.addAttribute("error","placeholder"); //application.properties
            return "registration";
         }
 
@@ -71,12 +71,7 @@ public class UserController {
 
     @GetMapping("/account")
     public String account(Model model) {
-        String userName = principalService.getPrincipal();
-        User user = userService.findByUsername(userName);
-        model.addAttribute("name",user.getUsername());
-        model.addAttribute("role",user.getRoles().toString());
-        model.addAttribute("balance",user.getBalance().toString());
-        model.addAttribute("orders",user.getOrders());
+        model.addAttribute("userDetail",userService.findByUsername(principalService.getPrincipal()));
         return "account";
     }
 }
