@@ -12,16 +12,22 @@ public class  Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private BigDecimal price;
 
-
+    public Product(String name ,Integer quantity ,BigDecimal price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+    public Product() {
+    }
     public Long getId() {
         return id;
     }

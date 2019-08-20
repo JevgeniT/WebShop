@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as c>
+<#import "../parts/common.ftl" as c>
 <@c.page>
     <form method="post" class="form-signin" >
         <h2 class="form-signin-heading">Create your account</h2>
@@ -10,11 +10,11 @@
         <input type="password" class="form-control" name="confirmPassword" placeholder="Password" required=""/>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-        <h4 class="text-center"><a href="login">Back</a></h4>
+        <h4 class="text-center"><a href="">Back</a></h4>
 
-        <#if message??>
+        <#if error??>
             <div class="alert" role="alert">
-                ${message}
+                ${error}
             </div>
         </#if>
     </form>

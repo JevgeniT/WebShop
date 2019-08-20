@@ -14,11 +14,9 @@
 
             <h4 class="text-lg-left"><p class="font-weight-light">Customer</p></h4>
             <hr>
-            <div>Username : ${name}</div>
-
-            <div>Role:  ${role}</div>
-
-            <div>Available balance : ${balance}</div>
+            <div>Username : ${userDetail.getUsername()}</div>
+            <div>Role : ${userDetail.getRoles()?join(", ")?lower_case?cap_first}</div>
+            <div>Available balance : ${userDetail.getBalance()}</div>
 
         </div>
         <hr>

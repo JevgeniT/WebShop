@@ -76,11 +76,8 @@ public class ShoppingCartController {
            shoppingCartService.checkout(new Order(currentTime ,shoppingCartService.getTotal() ,user,Status.submitted));
            user.setBalance(user.getBalance().subtract(shoppingCartService.getTotal()));
            userService.setBalance(user.getId(),user.getBalance().subtract(shoppingCartService.getTotal()));
-
            return "main";
        }
-
-
         return cartPage(model.addAttribute("compare","Not enough funds"));
 
     }

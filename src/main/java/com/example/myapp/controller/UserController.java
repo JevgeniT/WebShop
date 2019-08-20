@@ -1,6 +1,5 @@
 package com.example.myapp.controller;
 import com.example.myapp.model.User;
-import com.example.myapp.service.service.OrderService;
 import com.example.myapp.service.service.PrincipalService;
 import com.example.myapp.service.service.SecurityService;
 import com.example.myapp.service.service.UserService;
@@ -12,11 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import sun.security.ssl.Debug;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -36,7 +30,7 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-        return "registration";
+        return "login/registration";
     }
 
     @PostMapping("/registration")
@@ -61,7 +55,7 @@ public class UserController {
         if (logout != null){
             model.addAttribute("message", "You have been logged out successfully.");
         }
-        return "login";
+        return "login/login";
     }
 
     @GetMapping({"/","/main"})

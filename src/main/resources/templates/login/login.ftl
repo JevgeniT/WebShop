@@ -1,4 +1,4 @@
-<#import "parts/common.ftl" as c>
+<#import "../parts/common.ftl" as c>
 <@c.page>
 
 <form class="form-signin" modelAttribute="userForm" action="/login" method="post" >
@@ -7,6 +7,7 @@
     <input type="password" class="form-control" name="password" placeholder="Password" required autofocus />
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     <h4 class="text-center"><a href="registration">Create an account</a></h4>
+
     <#if error??>
         <div class="alert" role="alert">
             ${error}
