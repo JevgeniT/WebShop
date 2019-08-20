@@ -73,8 +73,6 @@ public class AdminController {
                              @RequestParam("quantity") String quantity) {
 
             productService.save(new Product(name,Integer.parseInt(quantity),new BigDecimal(price)));
-
-
         return "redirect:/admin/products";
     }
 
