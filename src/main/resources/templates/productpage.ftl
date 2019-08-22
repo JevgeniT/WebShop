@@ -14,7 +14,16 @@
                             <div class="card-body">
                                 <h5 class="card-title">${product.getName()}</h5>
                                 <p class="card-text">${product.getPrice()} $</p>
-                                <a href="/productpage/addProduct/${product.getId()}" class="btn btn-primary">Buy</a>
+                                <form class="form-inline"  action="/productpage/addproduct/${product.getId()}">
+                                    <#if product.getQuantity()==0>
+                                        <div class="alert-light">
+                                            out of stock
+                                        </div>
+                                        <#else >
+                                            <input type="number" name="count" value="1" min="1" max="${product.getQuantity()}"/>
+                                            <button type="submit" class="btn btn-info btn-sm">Buy</button>
+                                    </#if>
+                                </form>
                             </div>
                         </div>
                     </td>
@@ -24,5 +33,4 @@
         </tbody>
     </table>
 </div>
-
 </@c.page>

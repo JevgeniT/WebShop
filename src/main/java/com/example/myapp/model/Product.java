@@ -1,10 +1,13 @@
 package com.example.myapp.model;
 
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@DynamicUpdate
 @Table(name = "products")
 public class  Product {
 

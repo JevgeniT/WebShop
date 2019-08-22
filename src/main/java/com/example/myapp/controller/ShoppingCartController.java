@@ -1,24 +1,20 @@
 package com.example.myapp.controller;
-
+import com.example.myapp.exception.NotEnoughFundsException;
+import com.example.myapp.exception.NotEnoughInStockException;
 import com.example.myapp.model.Order;
 import com.example.myapp.model.Status;
 import com.example.myapp.model.User;
 import com.example.myapp.service.service.*;
-import org.apache.tomcat.jni.Local;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 public class ShoppingCartController {
@@ -29,7 +25,6 @@ public class ShoppingCartController {
     @Autowired
     PrincipalService principalService;
 
-    @Autowired
     private ProductService productService;
 
     private final ShoppingCartService shoppingCartService;
@@ -46,11 +41,19 @@ public class ShoppingCartController {
         return "productpage";
     }
 
+    @GetMapping("productpage/addproduct/{productId}")
+    public String addProduct(@PathVariable("productId") Long productId,
+                             @RequestParam("count") Integer count) {
+        productService.findById(productId).ifPresent(product -> shoppingCartService.addProduct(product,count));
+        return "redirect:/cart";
+    }
 
-    @GetMapping("/productpage/addProduct/{productId}")
-    public String addProduct(@PathVariable("productId") Long productId) {
-        productService.findById(productId).ifPresent(shoppingCartService::addProduct);
-        return "redirect:/productpage";
+    @GetMapping("/cart")
+    public String cartPage(Model model) {
+        model.addAttribute("cart" ,shoppingCartService.getProductsInCart().entrySet());
+        model.addAttribute("total" ,shoppingCartService.getTotal().toString());
+
+        return "cart";
     }
 
     @GetMapping("/cart/removeProduct/{productId}")
@@ -59,26 +62,14 @@ public class ShoppingCartController {
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart")
-    public String cartPage(Model model) {
-        model.addAttribute("cart" ,shoppingCartService.getProductsInCart().entrySet());
-        model.addAttribute("total" ,shoppingCartService.getTotal().toString());
-        return "cart";
-    }
-
     @GetMapping("/productpage/checkout")
     public String checkout(Model model) {
-
-        String userName = principalService.getPrincipal();
-        User user = userService.findByUsername(userName);
-        LocalDateTime currentTime = LocalDateTime.now();
-       if (shoppingCartService.getTotal().compareTo(user.getBalance()) < 0) {
-           shoppingCartService.checkout(new Order(currentTime ,shoppingCartService.getTotal() ,user,Status.submitted));
-           user.setBalance(user.getBalance().subtract(shoppingCartService.getTotal()));
-           userService.setBalance(user.getId(),user.getBalance().subtract(shoppingCartService.getTotal()));
-           return "main";
-       }
-        return cartPage(model.addAttribute("compare","Not enough funds"));
-
+        User user = userService.findByUsername(principalService.getPrincipal());
+        try {
+            shoppingCartService.checkout(new Order(LocalDateTime.now() ,shoppingCartService.getTotal() ,user ,Status.submitted));
+        } catch (NotEnoughInStockException | NotEnoughFundsException e) {
+            return cartPage(model.addAttribute("message" ,e.getMessage()));
+        }
+        return cartPage(model.addAttribute("message" ,"Order Placed!"));
     }
 }

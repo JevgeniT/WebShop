@@ -20,7 +20,7 @@
                         <tr>
                             <td>${order.getId()}</td>
                             <td>${order.getOrderDate().toString()?replace("T"," ")}</td>
-                            <td>${order.getTotalPrice()}</td>
+                            <td>${order.getTotalPrice()} $</td>
                             <td>${order.getStatus()?cap_first}</td>
                             <td><#if order.getShipDate()?has_content>${order.getShipDate()}<#else>Not yet</#if></td>
                             <td> <a href="/admin/setstatus/${order.getId()}" class="btn btn-primary btn-sm"> Ship </a></td>

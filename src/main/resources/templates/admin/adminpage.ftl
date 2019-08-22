@@ -16,10 +16,12 @@
             <#if userList?has_content>
                 <#list userList as user>
                     <tr >
-                        <td><a href="/admin/users/${user.getId()}/">${user.getId()}</td>
+                        <td>${user.getId()}</td>
                         <td>${user.getUsername()}</td>
                         <td>${user.getBalance()} $</td>
                         <td>${user.getOrders()?size}</td>
+                        <td>
+                            <a  class="btn btn-primary btn-sm" href="/admin/users/${user.getId()}/">Edit</a></td>
                     </tr>
                 </#list>
             </#if>
