@@ -29,6 +29,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private Map<Product, Integer> products = new HashMap<>();
 
+    @Autowired
     private OrderService orderService;
 
     @Autowired
@@ -68,7 +69,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
           if (product.getQuantity() < entry.getValue()) {
               entry.getKey().setQuantity(product.getQuantity() - entry.getValue());
               throw new NotEnoughInStockException(product);
-          }else if (order.getUser().getBalance().compareTo(getTotal())>0){
+          }else if (order.getUser().getBalance().compareTo(getTotal())<0){
               throw new NotEnoughFundsException(order.getUser());
           }
             product.setQuantity(product.getQuantity() - entry.getValue());

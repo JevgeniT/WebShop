@@ -66,7 +66,7 @@ public class ShoppingCartController {
     public String checkout(Model model) {
         User user = userService.findByUsername(principalService.getPrincipal());
         try {
-            shoppingCartService.checkout(new Order(LocalDateTime.now() ,shoppingCartService.getTotal() ,user ,Status.submitted));
+            shoppingCartService.checkout(new Order(shoppingCartService.getTotal() ,user ,Status.submitted));
         } catch (NotEnoughInStockException | NotEnoughFundsException e) {
             return cartPage(model.addAttribute("message" ,e.getMessage()));
         }

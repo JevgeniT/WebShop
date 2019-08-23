@@ -29,32 +29,32 @@ public class UserController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
+        model.addAttribute("action","/registration");
         model.addAttribute("userForm", new User());
-        return "login/registration";
+        return "login/login";
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm,BindingResult bindingResult,Model model) {
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error","placeholder"); //application.properties
-           return "registration";
+            model.addAttribute("message","placeholder"); //application.properties
+           return "login/login";
         }
-
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
         return "redirect:/main";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("error" ,"Your username and password is invalid.");
+            model.addAttribute("message" ,"Your username and password is invalid.");
         }
         if (logout != null){
             model.addAttribute("message", "You have been logged out successfully.");
         }
+            model.addAttribute("action","/login");
         return "login/login";
     }
 
