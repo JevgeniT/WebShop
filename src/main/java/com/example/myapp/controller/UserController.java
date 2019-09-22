@@ -3,58 +3,59 @@ import com.example.myapp.model.User;
 import com.example.myapp.service.service.PrincipalService;
 import com.example.myapp.service.service.SecurityService;
 import com.example.myapp.service.service.UserService;
-import com.example.myapp.validator.UserValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import javax.validation.Valid;
 
+@RequiredArgsConstructor
 @Controller
 public class UserController {
 
-    @Autowired
-    PrincipalService principalService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
+    private final PrincipalService principalService;
+    private final UserService userService;
+    private final SecurityService securityService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("action","/registration");
-        model.addAttribute("userForm", new User());
-        return "login/login";
+        return "login/registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm,BindingResult bindingResult,Model model) {
-        userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("message","placeholder"); //application.properties
-           return "login/login";
+    public String registration(@Valid User user, BindingResult bindingResult, Model model) {
+
+        if (user.getPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("errors", "Password not match!");
+            return "login/registration";
         }
-        userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+
+        if (userService.findByUsername(user.getUsername())!=null){
+            model.addAttribute("errors", "User exists!");
+            return "login/registration";
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors",bindingResult.getFieldError().getDefaultMessage());
+            return "login/registration";
+        }
+
+        userService.save(user);
+        securityService.autoLogin(user.getUsername(), user.getConfirmPassword());
+
         return "redirect:/main";
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("message" ,"Your username and password is invalid.");
+            model.addAttribute("errors" ,"Your username or password is invalid.");
         }
         if (logout != null){
-            model.addAttribute("message", "You have been logged out successfully.");
+            model.addAttribute("errors", "You have been logged out successfully.");
         }
-            model.addAttribute("action","/login");
         return "login/login";
     }
 

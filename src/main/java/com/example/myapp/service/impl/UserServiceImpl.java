@@ -2,54 +2,36 @@ package com.example.myapp.service.impl;
 
 import com.example.myapp.model.Role;
 import com.example.myapp.model.User;
-import com.example.myapp.repos.RoleRepository;
 import com.example.myapp.repos.UserRepository;
 import com.example.myapp.service.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
-
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        if (user.getUsername().contains("admin")){
-            roles.add(roleRepository.getOne(2L));
-        }else {
-            roles.add(roleRepository.getOne(1L));
+        if (userRepository.findByUsername(user.getUsername())==null) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            Set<Role> roles = new HashSet<>();
+            roles.add(user.getUsername().contains("admin") ? Role.ADMIN : Role.USER);
+            user.setRoles(roles);
+            user.setBalance(new BigDecimal(50.0));
         }
-        user.setRoles(roles);
-        user.setBalance(new BigDecimal(50.0));
-        userRepository.save(user);
-    }
 
-    @Override
-    public void setBalance(Long userId ,BigDecimal bigDecimal) {
-        userRepository.setBalance(userId,bigDecimal);
+        userRepository.save(user);
     }
 
     @Override

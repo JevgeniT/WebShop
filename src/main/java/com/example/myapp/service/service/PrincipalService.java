@@ -1,8 +1,5 @@
 package com.example.myapp.service.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -25,7 +22,4 @@ public class PrincipalService {
         return userName;
     }
 
-    /**
-     * This method returns true if users is already authenticated [logged-in], else false.
-//     */
 }

@@ -5,13 +5,9 @@ import com.example.myapp.model.Status;
 import com.example.myapp.repos.OrderRepository;
 import com.example.myapp.service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<Order> findOrderByUser_Id(Long id) {
+    public Optional<Order> findOrderByUserId(Long id) {
         return orderRepository.findById(id);
     }
 
@@ -43,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void setStatus(Long orderId ,Status status ,LocalDateTime shipDate){
+    public void setStatus(Long orderId ,Status status ,Date shipDate){
         orderRepository.setStatus(orderId,status,shipDate);
     }
 

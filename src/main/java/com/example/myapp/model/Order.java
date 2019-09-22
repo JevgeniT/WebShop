@@ -1,9 +1,9 @@
 package com.example.myapp.model;
-
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -12,33 +12,32 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 public class Order {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "order_date")
-    private LocalDateTime orderDate = LocalDateTime.now();
+    private final Date orderDate  = new Date();
 
     @NonNull
     @Column(name = "total_price")
     private BigDecimal totalPrice;
-
 
     @NonNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @NonNull
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status ;
+    private Status status;
 
-
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "ship_date")
-    private  LocalDateTime shipDate;
-
+    private  Date shipDate;
 }
