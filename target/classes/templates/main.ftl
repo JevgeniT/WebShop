@@ -1,10 +1,8 @@
-
-<#import "common.ftl" as c>
-
-
+<#import "parts/common.ftl" as c>
 <@c.page>
-    <#include "navbar.ftl">
-    <h1>Main page </h1>
+<#include "parts/navbar.ftl">
+<div class="container">
 
+</div>
 </@c.page>
 
