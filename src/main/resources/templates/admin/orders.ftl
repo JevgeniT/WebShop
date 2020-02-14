@@ -1,5 +1,6 @@
 <#import "navadmin.ftl" as a>
 <@a.page>
+    <div  class="col">
     <div class="ibox">
         <div class="ibox-content">
         <div class="col" >
@@ -34,6 +35,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
     </div>
     <div id="alert" class="alert fade">

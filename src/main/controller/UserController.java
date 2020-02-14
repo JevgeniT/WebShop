@@ -46,7 +46,7 @@ public class UserController {
         userService.save(user);
         securityService.autoLogin(user.getUsername(), user.getConfirmPassword());
 
-        return "redirect:/main";
+        return "redirect:/productpage";
     }
 
     @GetMapping("/login")
@@ -61,10 +61,10 @@ public class UserController {
         return "login/login";
     }
 
-    @GetMapping({"/","/main"})
-    public String main(Model model) {
-        return "main";
-    }
+//    @GetMapping({"/","/main"})
+//    public String main(Model model) {
+//        return "main";
+//    }
 
     @GetMapping("/account")
     public String account(Model model) {

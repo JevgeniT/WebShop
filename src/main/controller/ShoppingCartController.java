@@ -16,7 +16,7 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
 
-    @GetMapping("/productpage")
+    @GetMapping({"/","/productpage"})
     public String productPage(Model model) {
         model.addAttribute("product" ,productService.getAll());
         return "productpage";

@@ -178,10 +178,8 @@ $(document).ready(function() {
             });
         });
 
-    /*Cookie getter*/
     function getCookie() {return parseInt(Cookies.get('cartSize'));}
 
-    /*Cookie getter*/
     function setCookie(key,value) {
         return Cookies.set(key,value);
     }
@@ -189,6 +187,7 @@ $(document).ready(function() {
     /*Set cart size via cookies*/
     function setTotalCartQuantity(value) {
         let cartSize =isNaN(getCookie())?0: getCookie();
+        console.log(isNaN(getCookie()));
         let arrNumber = [];
 
         if (value === 1){
